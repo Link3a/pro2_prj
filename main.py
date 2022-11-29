@@ -40,9 +40,39 @@ class Employee:
         else:
             return False
 
+class Department:
+    def __init__(self, title, chief=None, employees=None):
+        self.title = title
+        if employees is None:
+            employees = list()
+        self.employees = employees
+        self.chief = chief
+
+    def append(self, emp):
+        self.employees.append(emp)
+
+
+    def __str__(self):
+        return f"Отдел: {self.title}, начальник: {self.chief}, количество сотрудников: {self.employees}"
+
+    def print_employees(self):
+        for emp in self.employees:
+            print(emp)
+
+    def print_employees_on_leave(self, status=True):
+        for emp in self.employees:
+            if emp.on_leave == status:
+                print(emp)
+
 
 petrov = Employee(1, "Петров А.А.", "12.11.1998", 50000)
-smirnov = Employee(1, "Смирнов П.Р.", "22.04.2000", 46000)
+smirnov = Employee(2, "Смирнов П.Р.", "22.04.2000", 46000, True)
+rudenko = Employee(3, "Руденко Е.Н.", "17.09.1990", 52000, True)
 print(petrov < smirnov)
 print(petrov <= smirnov)
 print(petrov == smirnov)
+
+arxiv = Department("Архив", employees=[petrov])
+arxiv.append(smirnov)
+arxiv.append(rudenko)
+arxiv.print_employees_on_leave(True)
